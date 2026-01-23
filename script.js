@@ -8,37 +8,40 @@ const stripCanvas = document.getElementById('strip-canvas');
 
 let capturedImages = [];
 
-// Memulai kamera
+// Memulai Kamera dengan rasio 4:3
 async function initCamera() {
     try {
         const stream = await navigator.mediaDevices.getUserMedia({ 
-            video: { width: { ideal: 1280 }, height: { ideal: 720 }, facingMode: "user" } 
+            video: { 
+                aspectRatio: 1.3333333333,
+                width: { ideal: 1280 },
+                facingMode: "user" 
+            } 
         });
         video.srcObject = stream;
     } catch (err) {
-        alert("Akses kamera ditolak atau tidak ditemukan.");
+        alert("Kamera tidak dapat diakses. Pastikan izin kamera sudah aktif.");
     }
 }
 
-// Logika Pemilihan Filter
+// Event untuk tombol filter
 document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-        const activeBtn = document.querySelector('.filter-btn.active');
-        if (activeBtn) activeBtn.classList.remove('active');
-        
+        document.querySelector('.filter-btn.active').classList.remove('active');
         btn.classList.add('active');
         video.className = btn.getAttribute('data-filter');
     });
 });
 
-// Mengambil foto tunggal
+// Fungsi Ambil Gambar
 function takeSnapshot() {
     const photoCanvas = document.getElementById('photo-canvas');
     const ctx = photoCanvas.getContext('2d');
+    
     photoCanvas.width = video.videoWidth;
     photoCanvas.height = video.videoHeight;
     
-    // Efek Visual Shutter & Flash
+    // Efek Shutter Visual
     shutter.style.opacity = "1";
     setTimeout(() => { shutter.style.opacity = "0"; }, 100);
     
@@ -47,16 +50,16 @@ function takeSnapshot() {
     document.getElementById('booth-container').appendChild(flash);
     setTimeout(() => flash.remove(), 400);
 
-    // Mirroring (membalikkan gambar)
+    // Mirroring hasil capture
     ctx.translate(photoCanvas.width, 0);
     ctx.scale(-1, 1);
-    
     ctx.filter = getComputedStyle(video).filter;
     ctx.drawImage(video, 0, 0, photoCanvas.width, photoCanvas.height);
+    
     return photoCanvas.toDataURL('image/png');
 }
 
-// Handler tombol start
+// Logika Sesi Photobooth
 captureBtn.addEventListener('click', async () => {
     captureBtn.disabled = true;
     capturedImages = [];
@@ -68,7 +71,7 @@ captureBtn.addEventListener('click', async () => {
         while (count > 0) {
             countdownDisplay.innerText = count;
             countdownDisplay.classList.remove('count-anim');
-            void countdownDisplay.offsetWidth; // Trigger reflow untuk animasi ulang
+            void countdownDisplay.offsetWidth; // Reset animasi
             countdownDisplay.classList.add('count-anim');
             await new Promise(r => setTimeout(r, 1000));
             count--;
@@ -82,24 +85,22 @@ captureBtn.addEventListener('click', async () => {
         thumb.src = imgData;
         resultsPreview.appendChild(thumb);
         
-        await new Promise(r => setTimeout(r, 800)); // Jeda antar sesi foto
+        await new Promise(r => setTimeout(r, 800)); 
     }
     
     await createStrip();
     captureBtn.disabled = false;
 });
 
-// Membuat format Photo Strip vertikal
+// Membuat Foto Strip Vertikal
 async function createStrip() {
     const ctx = stripCanvas.getContext('2d');
-    
-    // Background putih strip
     ctx.fillStyle = "#ffffff"; 
     ctx.fillRect(0, 0, stripCanvas.width, stripCanvas.height);
 
     const imgWidth = 540; 
     const xPos = 30;
-    const padding = 30;
+    const topPadding = 40;
 
     for (let i = 0; i < capturedImages.length; i++) {
         const img = new Image();
@@ -107,32 +108,28 @@ async function createStrip() {
         await new Promise(r => img.onload = r);
         
         const imgHeight = (img.height / img.width) * imgWidth;
-        const yPos = padding + (i * (imgHeight + 25)); 
-        
+        const yPos = topPadding + (i * (imgHeight + 25)); 
         ctx.drawImage(img, xPos, yPos, imgWidth, imgHeight);
     }
 
-    // Branding Footer
+    // Teks Branding di Strip
     ctx.fillStyle = "#1a1a1a";
-    ctx.font = "bold 22px sans-serif";
+    ctx.font = "bold 24px sans-serif";
     ctx.textAlign = "center";
-    ctx.fillText("PHOTOBOOTH BY DRM_DESIGN_OFFICIAL", stripCanvas.width / 2, stripCanvas.height - 50);
+    ctx.fillText("PHOTOBOOTH BY DRM_DESIGN", stripCanvas.width / 2, stripCanvas.height - 60);
     
-    // Tanggal Footer
-    ctx.font = "14px sans-serif";
+    ctx.font = "16px sans-serif";
     const dateStr = new Date().toLocaleDateString('id-ID', {year:'numeric', month:'long', day:'numeric'});
-    ctx.fillText(dateStr, stripCanvas.width / 2, stripCanvas.height - 25);
+    ctx.fillText(dateStr, stripCanvas.width / 2, stripCanvas.height - 30);
 
-    // Membuat tombol download
+    // Munculkan tombol download
     const finalLink = document.createElement('a');
     finalLink.href = stripCanvas.toDataURL('image/png');
     finalLink.download = `photobooth_${Date.now()}.png`;
     finalLink.className = "btn-download";
     finalLink.innerText = "DOWNLOAD PHOTO STRIP";
     downloadArea.appendChild(finalLink);
-    
     finalLink.scrollIntoView({ behavior: 'smooth' });
 }
 
-// Inisialisasi kamera saat load
 initCamera();
