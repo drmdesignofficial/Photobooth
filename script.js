@@ -130,6 +130,56 @@ async function createStrip() {
     finalLink.innerText = "DOWNLOAD PHOTO STRIP";
     downloadArea.appendChild(finalLink);
     finalLink.scrollIntoView({ behavior: 'smooth' });
+
+    function takeSnapshot() {
+    const photoCanvas = document.getElementById('photo-canvas');
+    const ctx = photoCanvas.getContext('2d');
+    
+    // Tentukan target rasio (4:3)
+    const targetRatio = 4 / 3;
+    
+    // Ukuran asli dari aliran video kamera
+    const vWidth = video.videoWidth;
+    const vHeight = video.videoHeight;
+    const vRatio = vWidth / vHeight;
+
+    let sWidth, sHeight, sx, sy;
+
+    // Logika Pemotongan (Cropping) Tengah
+    if (vRatio > targetRatio) {
+        // Jika video terlalu lebar (seperti di laptop)
+        sHeight = vHeight;
+        sWidth = vHeight * targetRatio;
+        sx = (vWidth - sWidth) / 2;
+        sy = 0;
+    } else {
+        // Jika video terlalu tinggi (seperti di HP portrait)
+        sWidth = vWidth;
+        sHeight = vWidth / targetRatio;
+        sx = 0;
+        sy = (vHeight - sHeight) / 2;
+    }
+
+    // Set ukuran canvas hasil menjadi landscape 4:3 (misal 1024x768)
+    photoCanvas.width = 1024; 
+    photoCanvas.height = 768;
+
+    // Efek visual Shutter
+    shutter.style.opacity = "1";
+    setTimeout(() => { shutter.style.opacity = "0"; }, 100);
+
+    // Gambar ke canvas dengan cropping
+    ctx.save();
+    ctx.translate(photoCanvas.width, 0);
+    ctx.scale(-1, 1); // Mirroring
+    ctx.filter = getComputedStyle(video).filter;
+    
+    // drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
+    ctx.drawImage(video, sx, sy, sWidth, sHeight, 0, 0, photoCanvas.width, photoCanvas.height);
+    ctx.restore();
+    
+    return photoCanvas.toDataURL('image/png');
+}
 }
 
 initCamera();
