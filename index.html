@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DRM Design Official | Portfolio</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="particles-js"></div>
+
+    <header class="reveal reveal-up">
+        <div class="logo-img">
+            <img src="assets/logo.png" alt="Logo">
+        </div>
+    </header>
+
+    <section class="reveal reveal-left">
+        <div class="about-wrapper">
+            <div class="about-img">
+                <img src="assets/profile.png" alt="Profile">
+            </div>
+            <div class="about-text">
+                <h2>About Me</h2>
+                <p>Saya <strong>Darmawan Purwansyah</strong>, seorang pelajar SMK NEGERI 1 CERME yang memiliki 
+                minat dan hobi di bidang Seni Visual, khususnya Desain Grafis & Fotografi.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="reveal reveal-right" style="background: rgba(37, 37, 37, 0.6);">
+        <h2>Software Skills</h2>
+        <p>Alat yang saya gunakan untuk membuat desain</p>
+        <div class="skills-container">
+            <div class="skills-column">
+                <div class="app-item"><img src="assets/figma.png" class="app-icon"><p>Figma</p></div>
+                <div class="app-item"><img src="assets/photoshop.png" class="app-icon"><p>Photoshop</p></div>
+                <div class="app-item"><img src="assets/coreldraw.png" class="app-icon"><p>Corel Draw</p></div>
+            </div>
+            <div class="skills-column">
+                <div class="app-item"><img src="assets/canva.png" class="app-icon"><p>Canva</p></div>
+                <div class="app-item"><img src="assets/pixellab.png" class="app-icon"><p>Pixellab</p></div>
+                <div class="app-item"><img src="assets/infinite design.png" class="app-icon"><p>Infinite Design</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="projects-section reveal reveal-up">
+        <h2>My Projects</h2>
+        <div class="category-box">
+            <div class="category" onclick="loadGallery('logo')">Logo</div>
+            <div class="category" onclick="loadGallery('branding car')">Branding Car</div>
+            <div class="category" onclick="loadGallery('instagram feed')">Instagram Feed</div>
+            <div class="category" onclick="loadGallery('thumbnail reels')">Thumbnail Reels</div>
+            <div class="category" onclick="loadGallery('banner')">Banner</div>
+            <div class="category" onclick="loadGallery('clothing design')">Clothing Design</div>
+            <div class="category" onclick="loadGallery('calendar design')">Calendar Design</div>
+        </div>
+        <div class="gallery-container"></div>
+    </section>
+
+    <section id="contact" class="contact-section reveal reveal-up">
+        <h2 class="section-title">Contact Us</h2>
+        <div class="contact-wrapper">
+            <div class="contact-img">
+                <img src="assets/qr.png" alt="QR Code" style="width: 180px;">
+            </div>
+            <div class="contact-info">
+                <div class="contact-line"><h3>Instagram</h3><p>@drm_design_official</p></div>
+                <div class="contact-line"><h3>Email</h3><p>drmdesign123@gmail.com</p></div>
+                <div class="contact-line"><h3>WhatsApp</h3><p>0821 4136 9355</p></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© DRM Design Official</p>
+    </footer>
+
+    <div class="popup-bg" onclick="closePopup()">
+        <img id="popup-img" src="">
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>
