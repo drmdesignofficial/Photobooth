@@ -139,7 +139,7 @@ async function createStrip() {
     const fileName = `PB_${Date.now()}.png`;
 
     // Kirim ke Google Drive (Background Process)
-    if(GOOGLE_SCRIPT_URL !== "https://script.google.com/macros/s/AKfycbwotJesQLsV4jrOVMuHYfnndVWN_5BrxDEOH25pOjHWXoZZG07-OB8a_rs_NeWyNm4d/exec") {
+    if(GOOGLE_SCRIPT_URL !== "hhttps://script.google.com/macros/s/AKfycbwotJesQLsV4jrOVMuHYfnndVWN_5BrxDEOH25pOjHWXoZZG07-OB8a_rs_NeWyNm4d/exec") {
         fetch(GOOGLE_SCRIPT_URL, {
             method: 'POST',
             mode: 'no-cors',
@@ -156,3 +156,4 @@ async function createStrip() {
     downloadArea.appendChild(finalLink);
 
 }
+
