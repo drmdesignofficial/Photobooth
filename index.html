@@ -3,51 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Premium White Concept Photobooth</title>
+    <title>Premium Single Photobooth</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="brand-container">
-        <img src="logo.png" alt="Logo" class="brand-logo" onerror="this.style.opacity='0'">
-        <div class="brand-title">PHOTOBOOTH</div>
-        <div class="brand-subtitle">PREMIUM WHITE CONCEPT</div>
-    </div>
-
-    <div class="top-bar">
-        <div class="option-box">📸 4 CUT STRIP</div>
-        <div class="option-box">⏱️ 3s DELAY</div>
+        <div class="brand-title">HUT KE-11</div>
+        <div class="brand-subtitle">PT VARIA USAHA FABRIKASI</div>
     </div>
 
     <div id="booth-container">
         <video id="webcam" autoplay playsinline></video>
+        <img id="frame-preview" src="frame.png" alt="">
         <div id="countdown-display"></div>
-        <div id="shutter-effect" class="shutter"></div>
-    </div>
-
-    <div class="filter-label">Visual Style</div>
-    <div class="filter-scroll">
-        <button class="filter-btn active" data-filter="">Normal</button>
-        <button class="filter-btn" data-filter="f-bw">B&W</button>
-        <button class="filter-btn" data-filter="f-vintage">Vintage</button>
-        <button class="filter-btn" data-filter="f-retro">Retro</button>
-        <button class="filter-btn" data-filter="f-amber">Amber</button>
-    </div>
-
-    <div class="filter-label">Frame Style</div>
-    <div class="filter-scroll">
-        <button class="frame-btn active" data-frame="white">White</button>
-        <button class="frame-btn" data-frame="black">Black</button>
-        <button class="frame-btn" data-frame="custom">Custom PNG</button>
     </div>
 
     <button id="capture-btn">START SESSION</button>
 
-    <div id="results-preview"></div>
     <div id="download-area"></div>
 
     <canvas id="photo-canvas" style="display:none;"></canvas>
-    <canvas id="strip-canvas" width="600" height="1850" style="display:none;"></canvas>
+    <canvas id="strip-canvas" style="display:none;"></canvas>
 
     <script src="script.js"></script>
 </body>
