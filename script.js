@@ -6,7 +6,7 @@ const downloadArea = document.getElementById('download-area');
 const stripCanvas = document.getElementById('strip-canvas');
 
 // --- PENGATURAN ---
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyNA91wZTuAdiyRwMoBY-UIGnb8tt9Dk_KHJHHWzDZFAKxX6pRZsa5qOBEm_ni0BRtwgA/exec"; 
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwotJesQLsV4jrOVMuHYfnndVWN_5BrxDEOH25pOjHWXoZZG07-OB8a_rs_NeWyNm4d/exec"; 
 let selectedFrame = 'white';
 let capturedImages = [];
 
@@ -139,7 +139,7 @@ async function createStrip() {
     const fileName = `PB_${Date.now()}.png`;
 
     // Kirim ke Google Drive (Background Process)
-    if(GOOGLE_SCRIPT_URL !== "hhttps://script.google.com/macros/s/AKfycbyNA91wZTuAdiyRwMoBY-UIGnb8tt9Dk_KHJHHWzDZFAKxX6pRZsa5qOBEm_ni0BRtwgA/exec") {
+    if(GOOGLE_SCRIPT_URL !== "https://script.google.com/macros/s/AKfycbwotJesQLsV4jrOVMuHYfnndVWN_5BrxDEOH25pOjHWXoZZG07-OB8a_rs_NeWyNm4d/exec") {
         fetch(GOOGLE_SCRIPT_URL, {
             method: 'POST',
             mode: 'no-cors',
@@ -154,4 +154,5 @@ async function createStrip() {
     finalLink.className = "btn-download";
     finalLink.innerText = "DOWNLOAD PHOTO STRIP";
     downloadArea.appendChild(finalLink);
+
 }
